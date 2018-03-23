@@ -1,0 +1,14 @@
+<div class="event">
+
+  <span class="edit">E</span>
+  <span (click)="delete()" class="remove">X</span>
+  <h3>ID : {{ usedEvent.getId() }}</h3>
+  <h3>Nom : {{ usedEvent.getNom() | uppercase  }}</h3>
+  <h4>Lieu : {{ usedEvent.getLieu()  }}</h4>
+  <p>Description : {{ usedEvent.getDescription() }}</p>
+  <p>Categorie {{ usedEvent.getId_categorie() }}</p>
+  <p><i> Date: {{ usedEvent.getDate() }}</i></p>
+  <button (click)="participation()" class="participation">Participation</button>
+
+
+</div>

@@ -1,0 +1,13 @@
+.container {
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap : wrap;
+
+}
+
+#form {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}

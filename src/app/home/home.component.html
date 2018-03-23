@@ -1,0 +1,16 @@
+<h2> Connexion </h2>
+
+<div id="form">
+
+    <label>
+      <span>Username :</span>
+      <input type="text" [(ngModel)] = "current_user.username" >
+    </label>
+    <label>
+      <span>Password :</span>
+      <input type="password" [(ngModel)] = "current_user.password">
+    </label>
+    <button (click)="connect()" >Se connecter</button>
+  
+  
+  </div>

@@ -1,0 +1,42 @@
+<h2>Events</h2>
+
+<div class="container">
+
+  <app-myevent *ngFor="let myevent of myevents; index as position"
+                [usedEvent] = "myevent"
+                [usedposition] = "position"
+                (onDelete) = "deleteEvent($event)"
+                (onParticipation)="addEventForUser($event)"
+  ></app-myevent>
+
+</div>
+
+<div id="form">
+
+
+  <label>
+    <span> Nom </span>
+    <input type="text" [(ngModel)] = "current_event.nom" />
+  </label>
+  <label>
+    <span> Description </span>
+    <input type="text" [(ngModel)] = "current_event.description" />
+  </label>
+  <label>
+    <span> Date </span>
+    <input type="text" [(ngModel)] = "current_event.date" />
+  </label>
+  <label>
+    <span> Lieu </span>
+    <input type="text" [(ngModel)] = "current_event.lieu" />
+  </label>
+  <label>
+    <span> Categorie </span>
+    <input type="number" [(ngModel)] = "current_event.id_categorie" />
+  </label>
+
+
+  <button (click)="addEvent()"> Ajouter </button>
+
+
+</div>
