@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { MyEventLiteral, MyEvent } from '../models/MyEvent';
 import { Observable } from 'rxjs/Observable';
 import { Category } from '../models/Category';
+import { Link } from '../models/Link';
 
 
 interface MyEventJson {
@@ -48,5 +49,18 @@ export class MyeventService {
 
     return this.http.delete(this.service_url + "event/" + id ) as Observable<{success: boolean}>;
   }
+
+  addEventForUser( link: Link) : Observable<{success: boolean, id_user: number, id_event: number, message: string}> {
+
+    return this.http.post(this.service_url + "eventuser", link) as Observable<{success: boolean, id_user: number, id_event: number, message: string}>;
+  }
+
+
+  deleteEventForUser( link: Link) : Observable<{success: boolean, message:string}> {
+
+    return this.http.delete(this.service_url + "eventuser/" + link.getId_user() + "/" + link.getId_evenement()) as Observable<{success: boolean, message:string}>;
+  }
+  
+
 
 }

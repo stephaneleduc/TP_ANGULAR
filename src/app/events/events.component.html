@@ -5,8 +5,9 @@
   <app-myevent *ngFor="let myevent of myevents; index as position"
                 [usedEvent] = "myevent"
                 [usedposition] = "position"
+                (onChangeBtn) = "verifyButton($event)"
                 (onDelete) = "deleteEvent($event)"
-                (onParticipation)="addEventForUser($event)"
+                (onParticipation)="addOrDeleteEventForUser($event)"
   ></app-myevent>
 
 </div>

@@ -5,6 +5,8 @@ import { MyeventService } from '../services/myevent.service';
 //Routes parameters
 import { ActivatedRoute } from '@angular/router';
 import { Authentication } from '../providers/authentication';
+import { Link } from '../models/Link';
+import { MyeventComponent } from '../myevent/myevent.component';
 
 @Component({
   selector: 'app-events',
@@ -17,10 +19,13 @@ import { Authentication } from '../providers/authentication';
 
 export class EventsComponent implements OnInit {
   
+  public btn: string;
+
   public myevents: MyEvent[] = [];
 
-
   public current_event: MyEvent = MyEvent.empty();
+
+  public curent_link: Link = Link.empty();
 
 
   constructor( private myeventservice: MyeventService, 
@@ -104,7 +109,8 @@ export class EventsComponent implements OnInit {
         json_data.description,
         json_data.date,
         json_data.lieu,
-        json_data.id_categorie
+        json_data.id_categorie,
+        json_data.isParticipated
       );
       myevent.setId(json_data.id);
       this.myevents.push( myevent );
@@ -120,7 +126,8 @@ export class EventsComponent implements OnInit {
       this.current_event.getDescription(),
       this.current_event.getDate(),
       this.current_event.getLieu(),
-      this.current_event.getId_categorie()
+      this.current_event.getId_categorie(),
+      this.current_event.getIsParticipated()
 
     )
 
@@ -148,7 +155,6 @@ export class EventsComponent implements OnInit {
   deleteEvent( position: number) :void {
 
     const id = this.myevents[position].getId();
-    console.log(id);
 
     this.myeventservice.deleteEvent(id).subscribe(
       (datas) => {
@@ -164,12 +170,78 @@ export class EventsComponent implements OnInit {
 
   }
 
+  verifyButton (value : string) {
+    
+    this.btn = value;
+  }
 
-  addEventForUser(event_id : number) {
+  addOrDeleteEventForUser (position : number) {
+
+    if (this.btn == "Participer") {
+
+      this.addEventForUser(position);
+
+    }
+
+    else if ( this.btn == "Ne plus participer") {
+
+      this.deleteEventForUser(position);
+
+    }
+  }
+
+
+  deleteEventForUser( position : number) {
 
     const user_id = this.authentication.getConnected_id();
 
-    console.log (user_id);
+    const event_id = this.myevents[position].getId();
+
+    let link = new Link (user_id, event_id);
+
+    this.myeventservice.deleteEventForUser(link).subscribe(
+
+      (datas) => {
+        if (datas.success) {
+
+          this.myevents[position].setIsParticpated(false);
+        }
+      },
+
+      (error) => {
+        console.log(error);
+
+      }
+    )
+
+
+
+  }
+
+
+  addEventForUser(position : number) {
+
+    const user_id = this.authentication.getConnected_id();
+
+    const event_id = this.myevents[position].getId();
+
+    let link = new Link (user_id, event_id);
+    
+    this.myeventservice.addEventForUser(link).subscribe(
+
+      (datas) => {
+        if (datas.success) {
+
+          this.myevents[position].setIsParticpated(true);
+
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+
+    )
+    
     
   }
 

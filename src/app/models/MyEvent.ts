@@ -7,9 +7,10 @@ export class MyEvent {
     private date: string;
     private lieu: string;
     private id_categorie: number;
+    private isParticipated : boolean;
 
     public static empty() {
-        return new MyEvent("","","","", 1);
+        return new MyEvent("","","","", 1, false);
     }
 
 
@@ -19,7 +20,8 @@ export class MyEvent {
         description: string,
         date: string,
         lieu: string,
-        id_categorie: number
+        id_categorie: number,
+        isParticipated: boolean
 
     ) {
 
@@ -80,6 +82,18 @@ export class MyEvent {
         this.id_categorie = id_categorie;
     }
 
+
+    getIsParticipated() : boolean {
+        return this.isParticipated;
+    }
+
+
+    setIsParticpated( isParticpated: boolean) : void {
+
+        this.isParticipated = this.isParticipated;
+
+    }
+
 }
 
 export interface MyEventLiteral {
@@ -89,6 +103,7 @@ export interface MyEventLiteral {
     description: string,
     date: string,
     lieu: string,
-    id_categorie: number
+    id_categorie: number,
+    isParticipated: boolean
 
 }

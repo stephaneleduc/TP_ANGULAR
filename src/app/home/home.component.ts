@@ -40,6 +40,9 @@ export class HomeComponent implements OnInit {
 
           
           this.authentication.setConnected_id(datas.id);
+
+          this.current_user.setUsername("");
+          this.current_user.setPassword("");
          
         }
         
