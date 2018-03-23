@@ -25,9 +25,6 @@ export class EventsComponent implements OnInit {
 
   public current_event: MyEvent = MyEvent.empty();
 
-  public curent_link: Link = Link.empty();
-
-
   constructor( private myeventservice: MyeventService, 
                private activatedRoute: ActivatedRoute,
                private authentication: Authentication
@@ -43,14 +40,35 @@ export class EventsComponent implements OnInit {
       (datas) => {
         const id : number = datas.id_category;
         this.myevents = [];
-        if (!id) {
+        if (!id && this.activatedRoute.routeConfig.path == "events") {
+
           this.getAllEvents();
+          
+        }
+        else if (!id && this.activatedRoute.routeConfig.path == "myevents") {
+
+          this.myeventservice.GetEventsByUserId(this.authentication.getConnected_id()).subscribe(
+
+            (datas) => {
+      
+                if (datas.success) {
+      
+                  this.populateEvent (datas.evenements);
+                }
+            },
+            (error) => {
+                console.log(error);
+            }
+      
+        )
+          
         }
         else {
           this.getEventsByCategory_id (id );
         }
-        
+
       },
+
       (error) => {
 
         console.log(error);
@@ -112,8 +130,11 @@ export class EventsComponent implements OnInit {
         json_data.id_categorie,
         json_data.isParticipated
       );
+
       myevent.setId(json_data.id);
       this.myevents.push( myevent );
+
+      
 
     }
 

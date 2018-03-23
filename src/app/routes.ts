@@ -2,6 +2,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { EventsComponent } from "./events/events.component";
 import { HomeComponent } from "./home/home.component";
 import { Authentication } from "./providers/authentication";
+import { AppComponent } from "./app.component";
 
 const routes: Routes = [
 
@@ -9,6 +10,14 @@ const routes: Routes = [
 
         path:"home",
         component: HomeComponent
+
+    },
+
+    {
+
+        path:"myevents",
+        canActivate: [Authentication],
+        component: EventsComponent
 
     },
 

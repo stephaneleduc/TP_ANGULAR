@@ -4,6 +4,7 @@ import { User } from '../models/User';
 import { AppComponent } from '../app.component';
 import { Authentication } from '../providers/authentication';
 import { Router } from '@angular/router';
+import { MyeventService } from '../services/myevent.service';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,14 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  private static STORAGE_KEY = "ID";
-
   private current_user: User = User.empty();
 
-  constructor( private userservice: UserService, private authentication: Authentication ) { }
+  constructor( private userservice: UserService, 
+               private authentication: Authentication,
+               ) { }
 
   ngOnInit() {
+
   }
 
 

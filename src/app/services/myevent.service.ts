@@ -60,6 +60,13 @@ export class MyeventService {
 
     return this.http.delete(this.service_url + "eventuser/" + link.getId_user() + "/" + link.getId_evenement()) as Observable<{success: boolean, message:string}>;
   }
+
+
+  GetEventsByUserId(id : number ): Observable<MyEventJson> {
+
+    return this.http.get(this.service_url + "alleventsuser/" + id ) as Observable<MyEventJson>;
+
+  }
   
 
 

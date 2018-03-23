@@ -13,10 +13,13 @@ export class AppComponent implements OnInit {
 
     public categories: Category[] = [];
 
+
     constructor( private myEventsService: MyeventService,
                  private authentication: Authentication ){}
 
     ngOnInit(): void {
+
+        
 
         this.myEventsService.getAllCategories().subscribe(
             (data) => {
